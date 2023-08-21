@@ -5,8 +5,15 @@ require "mainScript.php";
 // Create
 function addBook($title, $author) {
     global $conn;
-    $sql = "INSERT INTO books (title, author) VALUES ('$title', '$author')";
+    $sql = "INSERT INTO books (title, author, is_borrowed) VALUES ('$title', '$author', 0)";
     $conn->query($sql);
+}
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["title"]) && isset($_POST["author"])) {
+    $title = $_POST['title'];
+    $author = $_POST['author'];
+    addBook($title, $author);
+    echo json_encode(array("message" => "Book added successfully."));
+    exit;
 }
 
 // Update
@@ -21,6 +28,12 @@ function deleteBook($id) {
     global $conn;
     $sql = "DELETE FROM books WHERE id=$id";
     $conn->query($sql);
+}
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id"])) {
+    $id = $_POST["id"];
+    deleteBook($id);
+    echo json_encode(array("message" => "Book remove successfully."));
+    exit;
 }
 
 // Read
@@ -38,5 +51,7 @@ function getAllBooks() {
 $booksData = getAllBooks();
 header('Content-Type: application/json');
 echo json_encode($booksData);
+
+
 
 ?>
