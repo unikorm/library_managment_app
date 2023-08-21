@@ -22,7 +22,21 @@
         </div>
 
         <div id="formToEditListOfBooks">  <!-- edit/delete/add book -->
-
+            <div id="addBook">
+                <input type="text" id="addBookName" placeholder="Názov knihy">
+                <input type="text" id="addBookAuthor" placeholder="Autor knihy">
+                <button id="addNewBookBtn" type="button">Pridať</button>
+            </div>
+            <div id="updateBook">
+                <input type="text" id="idOfBook" placeholder="ID knihy">
+                <input type="text" id="updateBookName" placeholder="Uprav názov knihy">
+                <input type="text" id="updateBookAuthor" placeholder="Uprav meno autora">
+                <button id="updateBookBtn">Upraviť</button>
+            </div>
+            <div id="deleteBook">
+                <input type="text" id="IDOFBOOK" placeholder="ID knihy na vymazanie">
+                <button id="deleteBookBtn">Vymazať</button>
+            </div>
         </div>
     </section>
 
