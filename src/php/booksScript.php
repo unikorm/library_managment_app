@@ -9,20 +9,6 @@ function addBook($title, $author) {
     $conn->query($sql);
 }
 
-// Read
-function getAllBooks() {
-    global $conn;
-    $sql = "SELECT * FROM books";
-    $result = $conn->query($sql);
-    $books = [];
-    while ($row = $result->fetch_assoc()) {
-        $listOfBooks[] = $row;
-    }
-    
-    header('Content-Type: application/json');
-    echo json_encode($listOfBooks);
-}
-
 // Update
 function updateBook($id, $title, $author) {
     global $conn;
@@ -36,5 +22,21 @@ function deleteBook($id) {
     $sql = "DELETE FROM books WHERE id=$id";
     $conn->query($sql);
 }
+
+// Read
+function getAllBooks() {
+    global $conn;
+    $sql = "SELECT * FROM books";
+    $result = $conn->query($sql);
+    $books = [];
+    while ($row = $result->fetch_assoc()) {
+        $books[] = $row;
+    }
+    return $books;
+}
+// Fetch all books and return JSON response
+$booksData = getAllBooks();
+header('Content-Type: application/json');
+echo json_encode($booksData);
 
 ?>

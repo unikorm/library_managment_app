@@ -1,16 +1,28 @@
 "use strict";
 //variables
-let booksList = document.getElementById("booksList");
 
 
-document.getElementById("").addEventListener("click", () => {
-    fetch("script.php") // Replace with your PHP endpoint
-        .then(response => response.json())
-        .then(data => {
-            // Update UI or perform actions based on the response data
-            console.log(data.message);
+// functions
+
+// Function to fetch books data and populate HTML
+function fetchAndPopulateBooks() {
+    fetch("src/php/booksScript.php")
+    .then(response => response.json())
+    .then(data => {
+        const booksListContainer = document.getElementById("booksList");
+            data.forEach(book => {
+                const bookItem = document.createElement("div");
+                bookItem.classList.add("bookItem");
+                bookItem.innerHTML = `
+                    <p>Číslo: ${book.id}</p>
+                    <h4>Názov: ${book.title}</h4>
+                    <p>Autor: ${book.author}</p>
+                    <p>Požičaná: ${book.is_borrowed}</p>
+                `;
+                booksListContainer.appendChild(bookItem);
+            });
         })
-        .catch(error => {
-            console.error("An error occurred:", error);
-        });
-});
+    .catch(error => console.error("Error:", error));
+};
+
+fetchAndPopulateBooks();
