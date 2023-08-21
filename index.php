@@ -8,22 +8,36 @@
 <body>
     <?php include 'src/php/mainScript.php'; ?>
 
-    <section id="booksList">
-        <p>Naše knihy</p>
-        <ul>
-            <li></li>              <!-- when somebody will have borrowed book, there must be name of him/her -->
-        </ul>
+    <section id="booksListSection">
+        <div id="booksList">
+            <p>Naše knihy</p>
+
+            <div id="bookItem">
+                <p>Číslo: <?php echo $bookData["id"]; ?></p>
+                <h4>Názov: <?php echo $bookData["title"]; ?></h4>
+                <p>Autor: <?php echo $bookData["author"]; ?></p>
+                <p>Požičaná: <?php echo $bookData["is_borrowed"]; ?></p>
+            </div>
+
+        </div>
 
         <div id="formToEditListOfBooks">  <!-- edit/delete/add book -->
 
         </div>
     </section>
 
-    <section id="readersList">
-        <p>Čitatelia</p>
-        <ul>
-            <li></li>
-        </ul>
+    <section id="readersListSection">
+        <div id="readersList">
+            <p>Čitatelia</p>
+
+            <div id="readerItem">
+                <p>Číslo: <?php echo $readerData["id"]; ?></p>
+                <h4>Meno: <?php echo $readerData["name"]; ?></h4>
+                <p>OP: <?php echo $readerData["id_card"]; ?></p>
+                <p>Dátum narodenia: <?php echo $readerData["birth_date"]; ?></p>
+            </div>
+
+        </div>
 
         <div id="formToEditListOfReaders">    <!-- edit/delete/add reader -->
 
