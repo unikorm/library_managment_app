@@ -11,21 +11,30 @@
     <section id="booksList">
         <p>Naše knihy</p>
         <ul>
-            <li></li>
+            <li></li>              <!-- when somebody will have borrowed book, there must be name of him/her -->
         </ul>
 
-        <div id="formToEditListOfBooks">
+        <div id="formToEditListOfBooks">  <!-- edit/delete/add book -->
 
         </div>
     </section>
 
-    <section id="readersListOfReaders">
+    <section id="readersList">
         <p>Čitatelia</p>
         <ul>
             <li></li>
         </ul>
 
-        <div id="formToEditList">
+        <div id="formToEditListOfReaders">    <!-- edit/delete/add reader -->
+
+        </div>
+    </section>
+
+    <section id="loanReturnForms">
+        <div id="loanForm">       <!-- loan a book by her id,  by readers id (from date) -->
+
+        </div>
+        <div id="returnForm">     <!-- return a book  by her id (till date)-->
 
         </div>
     </section>
