@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-    <?php include 'src/php/script.php'; ?>
+    <?php include 'src/php/mainScript.php'; ?>
 
     <section id="booksList">
         <p>Naše knihy</p>
