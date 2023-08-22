@@ -2,6 +2,21 @@
 
 require "mainScript.php";
 
+// Update
+function updateBook($id, $title, $author) {
+    global $conn;
+    $sql = "UPDATE books SET title='$title', author='$author' WHERE id=$id";
+    $conn->query($sql);
+}
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id']) && isset($_POST['title']) && isset($_POST['author'])) {
+    $id = $_POST['id'];
+    $title = $_POST['title'];
+    $author = $_POST['author'];
+    updateBook($id, $title, $author);
+    echo json_encode(array('message' => 'Book updated successfully.'));
+    exit;
+}
+
 // Create
 function addBook($title, $author) {
     global $conn;
@@ -9,18 +24,11 @@ function addBook($title, $author) {
     $conn->query($sql);
 }
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["title"]) && isset($_POST["author"])) {
-    $title = $_POST['title'];
-    $author = $_POST['author'];
+    $title = $_POST["title"];
+    $author = $_POST["author"];
     addBook($title, $author);
     echo json_encode(array("message" => "Book added successfully."));
     exit;
-}
-
-// Update
-function updateBook($id, $title, $author) {
-    global $conn;
-    $sql = "UPDATE books SET title='$title', author='$author' WHERE id=$id";
-    $conn->query($sql);
 }
 
 // Delete
@@ -32,7 +40,7 @@ function deleteBook($id) {
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id"])) {
     $id = $_POST["id"];
     deleteBook($id);
-    echo json_encode(array("message" => "Book remove successfully."));
+    echo json_encode(array("message" => "Book removed successfully."));
     exit;
 }
 

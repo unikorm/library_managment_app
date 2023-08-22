@@ -3,6 +3,7 @@
 //VARIABLES
 let addNewBookBtn = document.getElementById("addNewBookBtn");
 let deleteBookBtn = document.getElementById("deleteBookBtn");
+let updateBookBtn = document.getElementById("updateBookBtn");
 let lastDisplayedBookId = 0;
 
 // FUNCTIONS
@@ -21,42 +22,57 @@ function addNewBook() {
         })
         .then(response => response.json())
         .then(data => {
+            console.log('Book added:', data);
             fetchAndPopulateBooks(); // Refresh the book list
-        }).catch(error => console.error("Error:" + error));
+        }).catch(error => console.error("Error:", error));
     };
 };
 
 
 // Function to update book and fetch that into HTML
 function updateBook() {
-    let id = document.getElementById("idOfBook").value;
-    let updatedTitle = document.getElementById("updateBookName").value;
-    let updatedAuthor = document.getElementById("updateBookAuthor");
-
-    if (id & updatedTitle & updatedAuthor) {
-        
+    const id = parseInt(document.getElementById('idOfBook').value);
+    const title = document.getElementById('updateBookName').value;
+    const author = document.getElementById('updateBookAuthor').value;
+    
+    if (!isNaN(id) && title && author) {
+        fetch('src/php/booksScript.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `id=${encodeURIComponent(id)}&title=${encodeURIComponent(title)}&author=${encodeURIComponent(author)}`,
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Book updated:', data);
+            fetchAndPopulateBooks(); // Refresh the book list after updating a book
+        })
+        .catch(error => console.error('Error:', error));
     }
 }
 
 
 // Function to delete book and fetch that into HTML
 function deleteBook() {
-    let IDOfDeletingBook = document.getElementById("IDOFBOOK").value;
-
-    if (IDOfDeletingBook) {
-        fetch("src/php/booksScript.php", {
-            method: "POST",
+    const id = parseInt(document.getElementById('IDOFBOOK').value); // Convert to integer
+    
+    if (!isNaN(id)) { // Check if id is a valid number
+        fetch('src/php/booksScript.php', {
+            method: 'POST',
             headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
+                'Content-Type': 'application/x-www-form-urlencoded',
             },
-            body: `id=${encodeURIComponent(IDOfDeletingBook)}`,
+            body: `id=${encodeURIComponent(id)}`,
         })
         .then(response => response.json())
         .then(data => {
-            fetchAndPopulateBooks(); // i think i must again change this function, cause when i delete something, it doesn't disappear from list of books
-        }).catch(error => console.error("Error:" + error));
-    };
-};
+            console.log('Book deleted:', data);
+            fetchAndPopulateBooks(); // Refresh the book list after deleting a book
+        })
+        .catch(error => console.error('Error:', error));
+    }
+}
 
 
 // Function to fetch books data and populate HTML
@@ -88,3 +104,4 @@ fetchAndPopulateBooks();
 // Attach click event to the "Pridať" button
 addNewBookBtn.addEventListener("click", addNewBook);
 deleteBookBtn.addEventListener("click", deleteBook);
+updateBookBtn.addEventListener("click", updateBook);
