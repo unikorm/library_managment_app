@@ -67,11 +67,20 @@
     </section>
 
     <section id="loanReturnForms">
-        <div id="loanForm">       <!-- loan a book by her id,  by readers id (from date) -->
-
+        <div id="loanForm">   
+            <!-- loan a book by her id,  by readers id (from date) -->
+            <input type="text" id="idOfBookToLoan" placeholder="ID knihy na vypožičanie">
+            <input type="text" id="idOfReaderToLoan" placeholder="ID čitateľa">
+            <input type="text" id="dateFromBookLoan" placeholder="Od kedy požičiava">
+            <button id="loanBookBtn">Požičať</button>
+            <p id="loanedBookIdDisplay"></p>
         </div>
-        <div id="returnForm">     <!-- return a book  by her id (till date)-->
 
+        <div id="returnForm"> 
+        <!-- return a book  by her id (till date)-->
+            <input type="text" id="idOfBookToReturn" placeholder="ID tvojej pôžičky">
+            <input type="text" id="dateUntilBookLoan" placeholder="Dátum vrátenia">
+            <button id="returnBookBtn">Vrátiť</button>
         </div>
     </section>
 

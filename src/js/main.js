@@ -110,6 +110,7 @@ updateBookBtn.addEventListener("click", updateBook);
 
 
 
+
 // !!!!!READER SECTION!!!!!
 
 // VARIABLES
@@ -211,3 +212,67 @@ fetchAndPopulateReaders();
 addNewReaderBtn.addEventListener("click", addNewReader);
 deleteReaderBtn.addEventListener("click", deleteReader);
 updateReaderBtn.addEventListener("click", updateReader);
+
+
+
+
+
+
+
+
+
+// !!!!!!LOANS SECTION!!!!!!!
+
+// VARIABLES
+let loanBookBtn = document.getElementById("loanBookBtn");
+let returnBookBtn = document.getElementById("returnBookBtn");
+let loanedBookIdDisplay = document.getElementById("loanedBookIdDisplay");
+
+// FUNCTIONS
+// Function to loan a book
+function loanBook() {
+    const book_id = parseInt(document.getElementById("idOfBookToLoan").value);
+    const reader_id = parseInt(document.getElementById("idOfReaderToLoan").value);
+    const loan_date = document.getElementById("dateFromBookLoan").value;
+    
+    if (!isNaN(book_id) && !isNaN(reader_id) && loan_date) {
+        fetch("src/php/loansScript.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: `book_id=${encodeURIComponent(book_id)}&reader_id=${encodeURIComponent(reader_id)}&loan_date=${encodeURIComponent(loan_date)}`,
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log("Book loaned:", data);
+            loanedBookIdDisplay.textContent = `Loaned Book ID: ${data.loan_id}`; // Display loaned book ID
+        }).catch(error => console.error("Error:", error));
+    };
+};
+
+
+// Function to return a book
+function returnBook() {
+    const loan_id = parseInt(document.getElementById("idOfBookToReturn").value);
+    const return_date = document.getElementById("dateUntilBookLoan").value;
+    
+    if (!isNaN(loan_id) && return_date) {
+        fetch("src/php/loansScript.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: `loan_id=${encodeURIComponent(loan_id)}&return_date=${encodeURIComponent(return_date)}`,
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log("Book returned:", data);
+            // Perform any necessary actions after returning
+        }).catch(error => console.error("Error:", error));
+    };
+};
+
+// LISTENERS
+loanBookBtn.addEventListener("click", loanBook);
+returnBookBtn.addEventListener("click", returnBook);
