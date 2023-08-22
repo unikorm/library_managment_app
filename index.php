@@ -78,7 +78,7 @@
 
         <div id="returnForm"> 
         <!-- return a book  by her id (till date)-->
-            <input type="text" id="idOfBookToReturn" placeholder="ID tvojej pôžičky">
+            <input type="text" id="idOfBookToReturn" placeholder="ID tvojej objednávky">
             <input type="text" id="dateUntilBookLoan" placeholder="Dátum vrátenia">
             <button id="returnBookBtn">Vrátiť</button>
         </div>

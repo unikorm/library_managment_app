@@ -253,7 +253,6 @@ function loanBook() {
     const book_id = parseInt(document.getElementById("idOfBookToLoan").value);
     const reader_id = parseInt(document.getElementById("idOfReaderToLoan").value);
     const loan_date = document.getElementById("dateFromBookLoan").value;
-    borrowedBooksMap.set(book_id, reader_id);
     
     if (!isNaN(book_id) && !isNaN(reader_id) && loan_date) {
         fetch("src/php/loansScript.php", {
@@ -266,8 +265,11 @@ function loanBook() {
         .then(response => response.json())
         .then(data => {
             console.log("Book loaned:", data);
-            loanedBookIdDisplay.textContent = `Loaned Book ID: ${data.loan_id} by ${data.reader_name}`; // Display loaned book ID
+            let loanId = parseInt(data.loan_id);
+            let readerName = data.reader_name;
+            loanedBookIdDisplay.textContent = `ID objednávky: ${loanId}, vypožičal ${readerName}`; // Display loaned book ID
             fetchAndPopulateBooks();
+            borrowedBooksMap.set(book_id, reader_id);
             console.log(borrowedBooksMap);
         }).catch(error => console.error("Error:", error));
     };
@@ -291,7 +293,10 @@ function returnBook() {
         .then(data => {
             console.log("Book returned:", data);
             fetchAndPopulateBooks();
+            console.log(borrowedBooksMap);
             loanedBookIdDisplay.textContent = "";
+            borrowedBooksMap.delete(loan_id);
+            console.log(borrowedBooksMap)
         }).catch(error => console.error("Error:", error));
     };
 };
