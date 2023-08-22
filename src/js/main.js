@@ -199,16 +199,6 @@ async function fetchAndPopulateBooks() {
                 <h4>Názov: ${book.title}</h4>
                 <p>Autor: ${book.author}</p>
                 <p>Požičaná: ${book.is_borrowed}</p>`;
-
-            if (book.is_borrowed === "1") {
-                const readerResponse = await fetch(`src/php/readersScript.php?book_id=${encodeURIComponent(book.id)}`);
-                const readerData = await readerResponse.json();
-                console.log(readerData);
-                // const readerName = readerData.name;
-
-                bookItem.innerHTML += `<p>Čitateľ: ${readerData.name}</p>`;
-            }
-
             return bookItem;
         });
 
@@ -265,7 +255,8 @@ function loanBook() {
         .then(response => response.json())
         .then(data => {
             console.log("Book loaned:", data);
-            loanedBookIdDisplay.textContent = `Loaned Book ID: ${data.loan_id}`; // Display loaned book ID
+            loanedBookIdDisplay.textContent = `Loaned Book ID: ${data.loan_id} by ${data.reader_name}`; // Display loaned book ID
+            fetchAndPopulateBooks();
         }).catch(error => console.error("Error:", error));
     };
 };
@@ -287,7 +278,8 @@ function returnBook() {
         .then(response => response.json())
         .then(data => {
             console.log("Book returned:", data);
-            // Perform any necessary actions after returning
+            fetchAndPopulateBooks();
+            loanedBookIdDisplay.textContent = "";
         }).catch(error => console.error("Error:", error));
     };
 };
