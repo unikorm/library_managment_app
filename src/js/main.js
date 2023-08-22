@@ -1,6 +1,6 @@
 "use strict";
 
-
+const borrowedBooksMap = new Map();  // Map: book_id => reader_id
 // !!!!!READER SECTION!!!!!
 
 // VARIABLES
@@ -191,23 +191,33 @@ async function fetchAndPopulateBooks() {
         const booksListContainer = document.getElementById("booksList");
         booksListContainer.innerHTML = "";
 
-        const bookPromises = data.map(async book => {
+        for (const book of data) {
             const bookItem = document.createElement("div");
             bookItem.classList.add("bookItem");
+            let bookMark = parseInt(book.is_borrowed);
+            let bookId = parseInt(book.id);
             bookItem.innerHTML = `
-                <p>Číslo: ${book.id}</p>
+                <p>Číslo: ${bookId}</p>
                 <h4>Názov: ${book.title}</h4>
                 <p>Autor: ${book.author}</p>
-                <p>Požičaná: ${book.is_borrowed}</p>`;
-            return bookItem;
-        });
+                <p>Požičaná: ${bookMark}</p>`;
 
-        const bookItems = await Promise.all(bookPromises);
-        bookItems.forEach(bookItem => booksListContainer.appendChild(bookItem));
+            if (bookMark === 1 && borrowedBooksMap.has(bookId)) {
+                const reader_id = borrowedBooksMap.get(bookId);
+                console.log(reader_id);
+                const readerNameResponse = await fetch(`src/php/readersScript.php?id=${encodeURIComponent(reader_id)}`);
+                const readerData = await readerNameResponse.json();
+                const readerName = readerData.reader_name;
+                bookItem.innerHTML += `<p>Čitateľ: ${readerName}</p>`;
+            };
+            console.log(bookItem);
+            booksListContainer.appendChild(bookItem);
+        };
     } catch (error) {
         console.error("Error:", error);
-    }
-}
+    };
+};
+
 
 
 
@@ -243,6 +253,7 @@ function loanBook() {
     const book_id = parseInt(document.getElementById("idOfBookToLoan").value);
     const reader_id = parseInt(document.getElementById("idOfReaderToLoan").value);
     const loan_date = document.getElementById("dateFromBookLoan").value;
+    borrowedBooksMap.set(book_id, reader_id);
     
     if (!isNaN(book_id) && !isNaN(reader_id) && loan_date) {
         fetch("src/php/loansScript.php", {
@@ -257,6 +268,7 @@ function loanBook() {
             console.log("Book loaned:", data);
             loanedBookIdDisplay.textContent = `Loaned Book ID: ${data.loan_id} by ${data.reader_name}`; // Display loaned book ID
             fetchAndPopulateBooks();
+            console.log(borrowedBooksMap);
         }).catch(error => console.error("Error:", error));
     };
 };

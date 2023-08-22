@@ -2,6 +2,26 @@
 
 require_once "mainScript.php";
 
+// Fetch reader's name by ID
+function getReaderName($reader_id) {
+    global $conn;
+    $query = "SELECT name FROM readers WHERE id = $reader_id";
+    $result = $conn->query($query);
+    $readerName = "";
+    if ($result->num_rows === 1) {
+        $row = $result->fetch_assoc();
+        $readerName = $row["name"];
+    }
+    return array("reader_name" => $readerName);
+}
+if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET["id"])) {
+    $reader_id = $_GET["id"];
+    $getReaderName = getReaderName($reader_id);
+    $readerName = $getReaderName["reader_name"];
+    echo json_encode(array("reader_name" => $readerName));
+    exit;
+}
+
 // Update
 function updateReader($id, $name, $id_card, $birth_date) {
     global $conn;
