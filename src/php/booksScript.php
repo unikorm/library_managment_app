@@ -55,11 +55,9 @@ function getAllBooks() {
     }
     return $books;
 }
-// Fetch all books and return JSON response
+// all books in JSON
 $booksData = getAllBooks();
 header('Content-Type: application/json');
 echo json_encode($booksData);
-
-
 
 ?>

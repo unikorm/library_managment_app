@@ -11,8 +11,8 @@
     <?php include 'src/php/mainScript.php'; ?>
 
     <section id="booksListSection">
+        <p>Naše knihy</p>
         <div id="booksList">
-            <p>Naše knihy</p>
 
             
 
@@ -38,15 +38,31 @@
     </section>
 
     <section id="readersListSection">
+        <p>Čitatelia</p>
         <div id="readersList">
-            <p>Čitatelia</p>
 
             
 
         </div>
 
         <div id="formToEditListOfReaders">    <!-- edit/delete/add reader -->
-
+            <div id="addReader">
+                <input type="text" id="addReaderName" placeholder="Tvoje Meno">
+                <input type="text" id="addReaderId" placeholder="Číslo OP">
+                <input type="text" id="addReaderBirthDate" placeholder="Narodení(1998-03-22)">
+                <button id="addNewReaderBtn" type="button">Pridať</button>
+            </div>
+            <div id="updateReader">
+                <input type="text" id="idOfReader" placeholder="ID Čitateľa">
+                <input type="text" id="updateReaderName" placeholder="Tvoje nové Meno">
+                <input type="text" id="updateReaderId" placeholder="Nové číslo OP">
+                <input type="text" id="updateReaderBirthDate" placeholder="Noví dátum (1998-03-22)">
+                <button id="updateReaderBtn">Upraviť</button>
+            </div>
+            <div id="deleteReader">
+                <input type="text" id="IDOFREADER" placeholder="ID Čitateľa na vymazanie">
+                <button id="deleteReaderBtn">Vymazať</button>
+            </div>
         </div>
     </section>
 
