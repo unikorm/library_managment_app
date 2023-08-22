@@ -62,34 +62,26 @@ $readersData = getAllReaders();
 header('Content-Type: application/json');
 echo json_encode($readersData);
 
-// Get reader information based on book ID
-function getReaderInfoByBookId($book_id) {
+// Fetch reader names for the given book_id
+function getReaderNameForBook($book_id) {
     global $conn;
-    $sql = "SELECT readers.* FROM readers
+    $sql = "SELECT readers.name FROM readers
             INNER JOIN loans ON readers.id = loans.reader_id
             WHERE loans.book_id = $book_id";
     $result = $conn->query($sql);
-    
+
     if ($result->num_rows === 1) {
-        $readerInfo = $result->fetch_assoc();
-        return $readerInfo;
+        $row = $result->fetch_assoc();
+        return $row['name'];
     }
     return null;
 }
-// Handle reader information request
-if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET["book_id"])) {
-    $book_id = $_GET["book_id"];
-    $readerInfo = getReaderInfoByBookId($book_id);
-    
-    if ($readerInfo) {
-        $response = array("reader" => $readerInfo);
-    } else {
-        $response = array();
-    }
-
-    // Trim the response to remove any extra whitespace
-    echo json_encode($response);
-    exit;
+// Check if a book_id parameter is provided in the URL
+if (isset($_GET['book_id'])) {
+    $book_id = $_GET['book_id'];
+    $readerName = getReaderNameForBook($book_id);
+    header('Content-Type: application/json');
+    echo json_encode(['name' => $readerName]);
 }
 
 
