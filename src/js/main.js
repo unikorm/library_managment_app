@@ -80,20 +80,28 @@ function fetchAndPopulateBooks() {
     .then(data => {
         const booksListContainer = document.getElementById("booksList");
         booksListContainer.innerHTML = "";
-        
-        data.forEach(book => {
+
+        data.forEach(async book => {
             const bookItem = document.createElement("div");
             bookItem.classList.add("bookItem");
-            bookItem.innerHTML = `
-                <p>Číslo: ${book.id}</p>
+            bookItem.innerHTML = 
+                `<p>Číslo: ${book.id}</p>
                 <h4>Názov: ${book.title}</h4>
                 <p>Autor: ${book.author}</p>
-                <p>Požičaná: ${book.is_borrowed}</p>
-            `;
+                <p>Požičaná: ${book.is_borrowed}</p>`;
+
+            if (book.is_borrowed === "1") {
+                const readerResponse = await fetch(`src/php/readersScript.php?book_id=${encodeURIComponent(book.id)}`);
+                const readerData = await readerResponse.json();
+                const readerInfo = readerData.reader;
+
+                bookItem.innerHTML += `<p>Čitateľ: ${readerInfo.name}</p>`;
+            };
             booksListContainer.appendChild(bookItem);
         });
     }).catch(error => console.error("Error:", error));
 };
+
 
 fetchAndPopulateBooks();
 
