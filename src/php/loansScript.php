@@ -40,19 +40,22 @@ function returnBook($loan_id, $return_date) {
     if ($result->num_rows === 1) {
         $row = $result->fetch_assoc();
         $book_id = $row["book_id"];
-
+        // $reader_id = $row["reader_id"];
         $updateLoanSql = "UPDATE loans SET return_date = '$return_date' WHERE id = $loan_id";
         $conn->query($updateLoanSql);
         $updateBookSql = "UPDATE books SET is_borrowed = 0 WHERE id = $book_id";
         $conn->query($updateBookSql);
+        return array("book_id" => $book_id); // Return the book_id
     }
+    
+    return null;
 }
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["loan_id"]) && isset($_POST["return_date"])) {
     $loan_id = $_POST["loan_id"];
-    $return_date = $_POST["return_date"];
-    
-    returnBook($loan_id, $return_date);
-    echo json_encode(array("message" => "Book returned successfully."));
+    $return_date = $_POST["return_date"];  
+    $book_id_f = returnBook($loan_id, $return_date);
+    $book_id_s = $book_id_f["book_id"];
+    echo json_encode(array("message" => "Book returned successfully.", "book_id" => $book_id_s));
     exit;
 }
 

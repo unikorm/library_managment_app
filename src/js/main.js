@@ -268,8 +268,9 @@ function loanBook() {
             let loanId = parseInt(data.loan_id);
             let readerName = data.reader_name;
             loanedBookIdDisplay.textContent = `ID objednávky: ${loanId}, vypožičal ${readerName}`; // Display loaned book ID
-            fetchAndPopulateBooks();
             borrowedBooksMap.set(book_id, reader_id);
+            console.log(borrowedBooksMap);
+            fetchAndPopulateBooks();
             console.log(borrowedBooksMap);
         }).catch(error => console.error("Error:", error));
     };
@@ -292,10 +293,11 @@ function returnBook() {
         .then(response => response.json())
         .then(data => {
             console.log("Book returned:", data);
+            let bookID = parseInt(data.book_id);
+            console.log(typeof(bookID));
+            borrowedBooksMap.delete(bookID);
             fetchAndPopulateBooks();
-            console.log(borrowedBooksMap);
             loanedBookIdDisplay.textContent = "";
-            borrowedBooksMap.delete(loan_id);
             console.log(borrowedBooksMap)
         }).catch(error => console.error("Error:", error));
     };
