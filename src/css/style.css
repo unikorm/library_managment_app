@@ -12,19 +12,57 @@ body {
   display: flex;
   flex-direction: column;
 
+  background-color: rgb(203, 165, 127);
 }
 
 /* styling of book section */
 #booksListSection {
+  padding: 1em;
+  margin-bottom: 1em;
+
   background-color: lemonchiffon;
+}
+
+#formToEditListOfBooks {
+  padding: 1em;
+
+  background-color: rgb(205 224 255 / 66%);
+}
+
+#addBook,
+#updateBook,
+#deleteBook {
+  margin: .7em;
 }
 
 /* styling of reader section */
 #readersListSection {
+  padding: 1em;
+  margin-bottom: 1em;
+
   background-color: beige;
+}
+
+#formToEditListOfReaders {
+  padding: 1em;
+
+  background-color: #f5dcdc;
+}
+
+#addReader,
+#updateReader,
+#deleteReader {
+  margin: .7em;
 }
 
 /* styling of loan/return section */
 #loanReturnForms {
-  background-color: seashell;
+  padding: 1em;
+
+  background-color: rgb(255, 232, 216);
+}
+
+#loanForm,
+#returnForm {
+  margin: .7em;
 }

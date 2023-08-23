@@ -23,6 +23,7 @@
         </div>
 
         <div id="formToEditListOfBooks">  <!-- edit/delete/add book -->
+            <h3>Formulár na úpravu zoznamu kníh</h3>
             <div id="addBook">
                 <input type="text" id="addBookName" placeholder="Názov knihy">
                 <input type="text" id="addBookAuthor" placeholder="Autor knihy">
@@ -50,6 +51,7 @@
         </div>
 
         <div id="formToEditListOfReaders">    <!-- edit/delete/add reader -->
+            <h3>Formulár na úpravu zoznamu čitateľov</h3>
             <div id="addReader">
                 <input type="text" id="addReaderName" placeholder="Tvoje Meno">
                 <input type="text" id="addReaderId" placeholder="Číslo OP">
@@ -60,7 +62,7 @@
                 <input type="text" id="idOfReader" placeholder="ID Čitateľa">
                 <input type="text" id="updateReaderName" placeholder="Tvoje nové Meno">
                 <input type="text" id="updateReaderId" placeholder="Nové číslo OP">
-                <input type="text" id="updateReaderBirthDate" placeholder="Noví dátum (1998-03-22)">
+                <input type="text" id="updateReaderBirthDate" placeholder="Nový dátum (1998-03-22)">
                 <button id="updateReaderBtn">Upraviť</button>
             </div>
             <div id="deleteReader">
@@ -71,7 +73,7 @@
     </section>
 
     <section id="loanReturnForms">
-        <h2>Požičanie a vrátenie kníh</h2>
+        <h3>Požičanie a vrátenie kníh</h3>
         <div id="loanForm">   
             <!-- loan a book by her id,  by readers id (from date) -->
             <input type="text" id="idOfBookToLoan" placeholder="ID knihy na vypožičanie">
