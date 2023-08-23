@@ -8,12 +8,12 @@ function updateBook($id, $title, $author) {
     $sql = "UPDATE books SET title='$title', author='$author' WHERE id=$id";
     $conn->query($sql);
 }
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id']) && isset($_POST['title']) && isset($_POST['author'])) {
-    $id = $_POST['id'];
-    $title = $_POST['title'];
-    $author = $_POST['author'];
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id"]) && isset($_POST["title"]) && isset($_POST["author"])) {
+    $id = $_POST["id"];
+    $title = $_POST["title"];
+    $author = $_POST["author"];
     updateBook($id, $title, $author);
-    echo json_encode(array('message' => 'Book updated successfully.'));
+    echo json_encode(array("message" => "Book updated successfully."));
     exit;
 }
 
