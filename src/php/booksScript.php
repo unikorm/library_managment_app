@@ -34,13 +34,21 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["title"]) && isset($_P
 // Delete
 function deleteBook($id) {
     global $conn;
-    $sql = "DELETE FROM books WHERE id=$id";
-    $conn->query($sql);
+    $loanCheckQuery = "SELECT COUNT(*) FROM loans WHERE book_id = $id AND return_date IS NULL";
+    $loanCheckResult = $conn->query($loanCheckQuery);
+    $activeLoans = $loanCheckResult->fetch_assoc()["COUNT(*)"];
+
+    if ($activeLoans > 0) {
+        echo json_encode(array("message" => "Book has active loans and cannot be deleted."));
+    } else {
+        $sql = "DELETE FROM books WHERE id = $id";
+        $conn->query($sql);
+        echo json_encode(array("message" => "Book removed successfully."));
+    }
 }
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id"])) {
     $id = $_POST["id"];
     deleteBook($id);
-    echo json_encode(array("message" => "Book removed successfully."));
     exit;
 }
 
