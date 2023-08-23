@@ -5,6 +5,14 @@ require_once "mainScript.php";
 // Loan a book
 function loanBook($book_id, $reader_id, $loan_date) {
     global $conn;
+    $checkSql = "SELECT id FROM loans WHERE book_id = $book_id AND return_date IS NULL";
+    $result = $conn->query($checkSql);
+
+    if ($result->num_rows > 0) {
+        echo json_encode(array("error" => "Book is already borrowed and not returned."));
+        exit;
+    }
+
     $sql = "INSERT INTO loans (book_id, reader_id, loan_date) VALUES ($book_id, $reader_id, '$loan_date')";
     $conn->query($sql);
     $loan_id = $conn->insert_id;
@@ -14,20 +22,19 @@ function loanBook($book_id, $reader_id, $loan_date) {
     $readerQuery = "SELECT name FROM readers WHERE id = $reader_id";
     $readerResult = $conn->query($readerQuery);
     $readerName = "";
+
     if ($readerResult->num_rows === 1) {
         $readerRow = $readerResult->fetch_assoc();
         $readerName = $readerRow["name"];
     }
-    return array("loan_id" => $loan_id, "reader_name" => $readerName);
+
+    echo json_encode(array("message" => "Book loaned successfully.", "loan_id" => $loan_id, "reader_name" => $readerName));
 }
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["book_id"]) && isset($_POST["reader_id"]) && isset($_POST["loan_date"])) {
     $book_id = $_POST["book_id"];
     $reader_id = $_POST["reader_id"];
     $loan_date = $_POST["loan_date"];
-    $loan_id_and_reader = loanBook($book_id, $reader_id, $loan_date);
-    $loan_id = $loan_id_and_reader["loan_id"];
-    $readerName = $loan_id_and_reader["reader_name"];  
-    echo json_encode(array("message" => "Book loaned successfully.", "loan_id" => $loan_id, "reader_name" => $readerName));
+    loanBook($book_id, $reader_id, $loan_date); 
     exit;
 }
 
