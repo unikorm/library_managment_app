@@ -5,13 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
+    <link rel="stylesheet" href="src/css/style.css">
     <script src="src/js/main.js" defer></script>
 </head>
 <body>
     <?php include 'src/php/mainScript.php'; ?>
+    <section id="header">
+    <h1>Správa Knižnice</h1>
+    </section>
 
     <section id="booksListSection">
-        <p>Naše knihy</p>
+        <h2>Naše knihy</h2>
         <div id="booksList">
 
             
@@ -38,7 +42,7 @@
     </section>
 
     <section id="readersListSection">
-        <p>Čitatelia</p>
+        <h2>Čitatelia</h2>
         <div id="readersList">
 
             
@@ -67,6 +71,7 @@
     </section>
 
     <section id="loanReturnForms">
+        <h2>Požičanie a vrátenie kníh</h2>
         <div id="loanForm">   
             <!-- loan a book by her id,  by readers id (from date) -->
             <input type="text" id="idOfBookToLoan" placeholder="ID knihy na vypožičanie">

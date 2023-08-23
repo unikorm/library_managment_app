@@ -7,3 +7,24 @@
   -moz-osx-font-smoothing: greyscale;
   font-kerning: auto;
 }
+
+body {
+  display: flex;
+  flex-direction: column;
+
+}
+
+/* styling of book section */
+#booksListSection {
+  background-color: lemonchiffon;
+}
+
+/* styling of reader section */
+#readersListSection {
+  background-color: beige;
+}
+
+/* styling of loan/return section */
+#loanReturnForms {
+  background-color: seashell;
+}
