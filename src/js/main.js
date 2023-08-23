@@ -86,8 +86,8 @@ function fetchAndPopulateReaders() {
             const readerItem = document.createElement("div");
             readerItem.classList.add("readerItem");
             readerItem.innerHTML = `
-                <p>Číslo: ${reader.id}</p>
-                <h4>Meno: ${reader.name}</h4>
+                <div class="idOfReader"><p>ID:</p><h4>${reader.id}</h4></div>
+                <div class="nameOfReader"><p>Meno:</p><h4>${reader.name}</h4></div>
                 <p>Číslo OP: ${reader.id_card}</p>
                 <p>Dátum narodenia: ${reader.birth_date}</p>
             `;
@@ -197,8 +197,8 @@ async function fetchAndPopulateBooks() {
             let bookMark = parseInt(book.is_borrowed);
             let bookId = parseInt(book.id);
             bookItem.innerHTML = `
-                <p>Číslo: ${bookId}</p>
-                <h4>Názov: ${book.title}</h4>
+                <div class="idOfBook"><p>ID:</p><h4>${bookId}</h4></div>
+                <div class="nameOfBook"><p>Názov:</p><h4>${book.title}</h4></div>
                 <p>Autor: ${book.author}</p>
                 <p>Požičaná: ${bookMark}</p>`;
 

@@ -15,10 +15,13 @@ body {
   background-color: rgb(203, 165, 127);
 }
 
+
+
+
 /* styling of book section */
 #booksListSection {
-  padding: 1em;
-  margin-bottom: 1em;
+  padding: .8em;
+  margin: 1em 0;
 
   background-color: lemonchiffon;
 }
@@ -29,11 +32,35 @@ body {
   background-color: rgb(205 224 255 / 66%);
 }
 
+.bookItem {
+  display: flex;
+  justify-content: space-between;
+
+  margin: 1em 0;
+}
+
+.idOfBook,
+.nameOfBook {
+  display: flex;
+  justify-content: space-between;
+}
+
+.nameOfBook p,
+.nameOfBook h4,
+.idOfBook p,
+.idOfBook h4 {
+  margin: 1em .3em 0 0;
+}
+
 #addBook,
 #updateBook,
 #deleteBook {
   margin: .7em;
 }
+
+
+
+
 
 /* styling of reader section */
 #readersListSection {
@@ -47,6 +74,26 @@ body {
   padding: 1em;
 
   background-color: #f5dcdc;
+}
+
+.readerItem {
+  display: flex;
+  justify-content: space-between;
+
+  margin: 1em 0;
+}
+
+.idOfReader,
+.nameOfReader {
+  display: flex;
+  justify-content: space-between;
+}
+
+.nameOfReader p,
+.nameOfReader h4,
+.idOfReader p,
+.idOfReader h4 {
+  margin: 1em .3em 0 0;
 }
 
 #addReader,
