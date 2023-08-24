@@ -1,2 +1,4 @@
-# library_managment_app
+# library_managment_app  
+This is the test project I submitted as part of a job application.  
+
 A simple web app for library management, featuring a list of books and a list of readers. It includes forms for editing this data, as well as a form for book borrowing and return. When a reader borrows a book, the book's status is updated as borrowed and display the reader's name alongside the book. There is no validation or correctness check for the filled-in information. The app serves as a functional demo with basic logic, and the design is extremely simple, utilizing only pure CSS. For both frontend and backend, clean JavaScript and pure PHP are employed. As a data storage solution, a MySQL database is utilized. I completed the project in three days; I'm aware that it would take an additional two weeks of work to refine it visually, ensure full functionality, and enhance security for real-world usage.
